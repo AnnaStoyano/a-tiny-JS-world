@@ -62,7 +62,7 @@ const inhabitants = [man,woman,cat,dog,catWoman];
 let output = '';
 inhabitants.forEach(item=>{
    for(let key in item){
-      output+=`<b>${key}</b>: ${item[key]} `
+      output+=`<b>${key}</b>: ${item[key]}\t`
    }
    output+='\n'
 })
