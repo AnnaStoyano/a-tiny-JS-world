@@ -7,8 +7,66 @@
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
+const dog = {
+   species: 'dog',
+   name: 'Lucy',
+   gender: 'female',
+   legs: 4,
+   hands: 0,
+   saying: 'guf',
+   friends: ['Luck']
+};
+
+const cat = {
+   species: 'cat',
+   name: 'Murzick',
+   gender: 'male',
+   legs: 4,
+   hands: 0,
+   saying: 'meow',
+   friends: ['Elza','Nicky']
+};
+
+const woman = {
+   species: 'human',
+   name: 'Anna',
+   gender: 'female',
+   legs: 2,
+   hands: 2,
+   saying: 'Hello!',
+   friends: ['Sergey','Kate','Karina']
+}
+
+const man = {
+   species: 'human',
+   name: 'Vlad',
+   gender: 'male',
+   legs: 2,
+   hands: 2,
+   saying: 'Hi!',
+   friends: ['Sergey','Anton','Vlad']
+}
+
+const catWoman = {
+   species: 'human',
+   name: 'Liza',
+   gender: 'female',
+   legs: 2,
+   hands: 2,
+   saying: cat.saying,
+   friends: ['Batman']
+};
 
 
+const inhabitants = [man,woman,cat,dog,catWoman];
+let output = '';
+inhabitants.forEach(item=>{
+   for(let key in item){
+      output+=`<b>${key}</b>: ${item[key]} `
+   }
+   output+='\n'
+})
+print(output);
 // ======== OUTPUT ========
 /* Use print(message) for output.
    Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
