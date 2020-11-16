@@ -59,13 +59,13 @@ const catWoman = {
 
 
 const inhabitants = [man,woman,cat,dog,catWoman];
-let output = '';
-inhabitants.forEach(item=>{
-   for(let key in item){
-      output+=`<b>${key}</b>: ${item[key]}\t`
-   }
-   output+='\n'
-})
+
+const properties = ['name','species','gender','legs','hands','saying','friends'];
+let output = inhabitants.map(inhabitant=>
+   properties.map(property=>`<b>${property}:</b> ${inhabitant[property]}`
+   ).join('\t')
+).join('\n');
+
 print(output);
 // ======== OUTPUT ========
 /* Use print(message) for output.
