@@ -7,55 +7,75 @@
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
-const dog = {
-   species: 'dog',
-   name: 'Lucy',
-   gender: 'female',
-   legs: 4,
-   hands: 0,
-   saying: 'guf',
-   friends: ['Luck']
-};
 
-const cat = {
-   species: 'cat',
-   name: 'Murzick',
-   gender: 'male',
-   legs: 4,
-   hands: 0,
-   saying: 'meow',
-   friends: ['Elza','Nicky']
-};
-
-const woman = {
-   species: 'human',
-   name: 'Anna',
-   gender: 'female',
-   legs: 2,
-   hands: 2,
-   saying: 'Hello!',
-   friends: ['Sergey','Kate','Karina']
+class Mammals{
+   constructor(option){
+      this.species = 'mammals',
+      this.name = option.name,
+      this.gender = option.gender,
+      this.legs = 4,
+      this.hands = 0,
+      this.saying = option.saying,
+      this.friends = option.friends
+   }
 }
 
-const man = {
-   species: 'human',
-   name: 'Vlad',
-   gender: 'male',
-   legs: 2,
-   hands: 2,
-   saying: 'Hi!',
-   friends: ['Sergey','Anton','Vlad']
+class Dog extends Mammals{
+   constructor(option){
+      super(option);
+      this.species = 'dog',
+      this.saying = option.saying || 'guf'
+   }
+};
+
+class Cat extends Mammals{
+   constructor(option){
+      super(option);
+      this.species = 'cat',
+      this.saying = option.saying || 'meow'
+   }
+
+   getSaying(){
+      return this.saying || 'meow';
+   }
 }
 
-const catWoman = {
-   species: 'human',
-   name: 'Liza',
-   gender: 'female',
-   legs: 2,
-   hands: 2,
-   saying: cat.saying,
-   friends: ['Batman']
-};
+class Human extends Mammals{
+   constructor(option){
+      super(option);
+      this.species = 'human'
+      this.hands = 2;
+      this.legs =2;
+      this.saying = option.saying || `Hello! My name is ${this.name}`
+   }
+}
+
+class Woman extends Human{
+   constructor(option){
+      super(option);
+      this.gender = 'female'
+   }
+}
+
+class Man extends Human{
+   constructor(option){
+      super(option);
+      this.gender = 'male'
+   }
+}
+
+class CatWoman extends Woman{
+   constructor(option){
+      super(option);
+      this.saying = Cat.prototype.getSaying();
+   }
+}
+
+const cat = new Cat({name:'Murzic',gender:'male',friends:['Elza','Nicky']})
+const dog = new Dog({name:'Lucy',gender:'female',saying:'guffyy',friends:['Alla','Dima']});
+const man = new Man({name:'Vlad',friends:['Sergay','Anton'],saying:'Hello everyone!'});
+const woman = new Woman({name:'Anna',friends:['Sergay','Artem']});
+const catWoman = new CatWoman({name:'Lily',friends:['Batman']})
 
 
 const inhabitants = [man,woman,cat,dog,catWoman];
