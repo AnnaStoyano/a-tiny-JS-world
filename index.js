@@ -8,86 +8,77 @@
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
 
-class Mammals{
-   constructor(name,gender,friends){
-      this.species = 'mammals',
-      this.name = name,
-      this.gender = gender,
-      this.legs = 4,
-      this.friends = friends
+class Mammal {
+   constructor(species, name, gender, legs, friends, saying) {
+      this.species = species;
+      this.name = name;
+      this.gender = gender;
+      this.legs = legs;
+      this.friends = friends;
+      this.saying = saying;
    }
-}
 
-class Dog extends Mammals{
-   constructor(name,gender,friends,saying){
-      super(name,gender,friends);
-      this.species = 'dog',
-      this.saying = saying || 'guf'
+   tellAbout() {
+      const properties = ['species', 'name', 'gender']; //all mammals have this properties
+      for (let property in this) {
+         if (!properties.includes(property))
+            properties.push(property);
+      }
+      return properties.map(property => `<b>${property}:</b> ${this[property]}`).join('\t');
    }
 };
 
-class Cat extends Mammals{
-   constructor(name,gender,friends,saying){
-      super(name,gender,saying,friends);
-      this.species = 'cat',
-      this.saying = saying || 'guf'
+class Dog extends Mammal {
+   constructor(name, gender, friends, saying) {
+      super('dog', name, gender, 4, friends, saying || 'guf');
+   }
+};
+
+class Cat extends Mammal {
+   constructor(name, gender, friends, saying) {
+      super('cat', name, gender, 4, friends, saying || 'meow');
    }
 
-   getSaying(){
+   getSaying() {
       return this.saying || 'meow';
    }
 }
 
-class Human extends Mammals{
-   constructor(name,gender,friends,saying){
-      super(name,gender,friends);
-      this.species = 'human'
+class Human extends Mammal {
+   constructor(name, gender, friends, saying) {
+      super('human', name, gender, 2, friends, saying);
       this.hands = 2;
-      this.legs =2;
-      this.saying = saying || `Hello! My name is ${this.name}`
+      this.saying = saying || `Hello! My name is ${this.name}`;
    }
 }
 
-class Woman extends Human{
-   constructor(name,friends,saying){
-      super(name,friends,saying);
-      this.gender = 'female'
+class Woman extends Human {
+   constructor(name, friends, saying) {
+      super(name, 'female', friends, saying);
    }
 }
 
-class Man extends Human{
-   constructor(name,friends,saying){
-      super(name,friends,saying);
-      this.gender = 'male'
+class Man extends Human {
+   constructor(name, friends, saying) {
+      super(name, 'male', friends, saying);
    }
 }
 
-class CatWoman extends Woman{
-   constructor(name,friends,saying){
-      super(name,friends,saying);
-      this.saying = Cat.prototype.getSaying();
+class CatWoman extends Woman {
+   constructor(name, friends) {
+      super(name, friends, Cat.prototype.getSaying());
    }
-}
+};
 
-const cat = new Cat(name='Murzic',gender='male',friends=['Elza','Nicky'])
-const dog = new Dog(name='Lucy',gender='female',saying='guffyy',friends=['Alla','Dima']);
-const man = new Man(name='Vlad',friends=['Sergay','Anton'],saying='Hello everyone!');
-const woman = new Woman(name='Anna',friends=['Sergay','Artem']);
-const catWoman = new CatWoman(name='Lily',friends=['Batman'])
+const cat = new Cat('Murzic', 'male', ['Elza', 'Nicky']);
+const dog = new Dog('Lucy', 'female', ['Alla', 'Dima'], 'guffyy');
+const man = new Man('Vlad', ['Sergay', 'Anton'], 'Hello everyone!');
+const woman = new Woman('Anna', ['Sergay', 'Artem']);
+const catWoman = new CatWoman('Lily', ['Batman']);
 
-const inhabitants = [man,woman,cat,dog,catWoman];
+const inhabitants = [man, woman, cat, dog, catWoman];
 
-const properties = ['name','species','gender','legs','hands','saying','friends'];
-let output = inhabitants.map(inhabitant=>
-   properties.map(property=>{
-      if(inhabitant.hasOwnProperty(property))
-         return `<b>${property}:</b> ${inhabitant[property]}`
-      else
-         return `<b>${property}:</b> ${inhabitant['species']} doesn't have`
-      
-   }
-   ).join('\t')
-).join('\n');
+let output = inhabitants.map(inhabitant => inhabitant.tellAbout()).join('\n');
 
 print(output);
 // ======== OUTPUT ========
@@ -108,5 +99,3 @@ print(output);
    print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
    print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
    */
-
-
